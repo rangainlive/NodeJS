@@ -39,3 +39,26 @@
 
 
 
+# Lesson 02: Node JS Basics
+
+    Request and Response done through some protocols. => HTTP, HTTPS
+
+    # 1. HTTP : Hyper Text Transfer Protocol
+        A Protocol for Transferring Data which is understood by Browser and Server.
+
+    # 2. HTTPS : Hyper Text Transfer Protocol Secure
+        HTTP + Data Encryption (during Transmission)
+
+    CoreModules:
+        http -> Launch a server, send requests
+        https -> launch a SSL server
+        fs, 
+        path, 
+        os
+
+    Node.js Program Lifecycle:
+        node app.js -> start script -> parse code, register variables & functions -> event loop (keeps on running as long as there are event listeners registered) -> process.exit (close the server)
+    
+    Controlling the Node.js Process:
+
+    Routing Request:
