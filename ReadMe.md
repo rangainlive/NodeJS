@@ -36,6 +36,3 @@
         Business Logic: Handle Requests, Validate input, Connect to Database.
 
         Responses: Return Responses (Rendered HTML, JSON,...)
-
-
-
