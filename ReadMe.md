@@ -65,4 +65,54 @@
     Redirecting Requests:
     Parsing Request Bodies:
         Streams & Buffers:
-        
+    Understanding Event Driven Code Execution:
+    Blocking and Non-Blocking Code:
+    Node.js Looking Behind the Scenes:
+        Single Thread, Event Loop & Blocking Code
+            Node.js uses only one single JavaScript thread (process in OS).
+            some code which accesses the file system -> working with files often is a task takes longer -> by doing this upon an incoming request, a second request might have to wait because not able to handle it yet or it even gets declined.
+        Behind the Scenes:
+            the event loop automatically started by node.js when your program starts, we don't to do that explicitly.
+            this is responsible for handling event callbacks though, so all these nice functions we basically added thus far in create server for example, the event loop is rsponsible for basically running that code when a certain event occurs you could say, it's aware of all these callbacks and basically well, execute said code. 
+            thus doesn't help us with long taking file operation -> it's important to understand that this operation is not handled by the event loop, just the callback that we might have defined on write file once it's done, that code will be handled in event loop but that code will finish fast.
+            so basically the event loop will only handle callbacks that contain fast finshing code.
+            Instead our file system operation and a couple of other long taking operations are sent to a worker pool which is also spun up and managed by node.js automatically.
+            this worker pool is responsible for all the heavy lifting -> is kind of totally detached of our JavaScript code you could say and it runs on different threads, it can spin up multiple threads, it's closely intervened with your operating system you're running the app on -> so this is really detached from your code and this worker pool is therefore doing all the heavy lifting.
+            If you're doing something with a file, well a worker from that pool will take care and will do its job totally detached from your code and from the request and from the event loop. The one connection to the event loop we will have though is that once the worker is done, so for example once we read a file, it will trigger the callback for that read file operation and since the event loop is responsible for the events and the callbacks, this will in the end up in the event loop, so there nodejs will then basically execute the appropriate callback.
+        Event Loop:
+            It has certain orders which it goes through the callbacks.
+            1. at the begining of each new iteration it checks if there are any timer callbacks it should execute. 
+            2. it checks other pending callbacks ( Execute I/O - related Callbacks that were deferred)
+                I/O -> Input & Output (Disk & Network Operations (~ Blocking Operations)).
+            -> Now it's important to understand that nodejs will leave that phase at a certain point of time and that can also mean that if there are too many outstanding callbacks, it will continue its loop iteration and postpone these callbacks to the next iteration to execute them. After working on these open callbacks hoping finishing them all, it will enter a poll phase.
+            3. Poll phase : (Retrive new I/O events, execute their callbacks)
+            basically a phase where nodejs will look for new IO events and basically do its best to execute their callbacks immediately if possible.
+            -> Now it that's not possible, it will defer the execution and basically register this as a pending callback, so this is how that works.
+            -> it also check if there are any timer callbacks due to be executed and if that is the case, it will jump to that timer phase and excute them right away. so, it can actually jump back there and not finish the iteration otherwise it will continue next setimmediate callbacks will be executed in a so-called check phase.
+            4. Check Phase: (Execute setimmediate() callbacks..)
+             -> bit like set timeout or set interval, just that it will execute immediately but always after any open callbacks have been executed.
+            5.Close callbacks: (Execute all 'close' event callbacks)
+                -> close events are basically handled separately or their callbacks are handled separately.
+            6. exit ( process.exit)
+
+    Using Node Modules System:
+    Module Summary:
+        1. How the Web works:
+            Client -> Request -> Server -> Response -> Client
+        2. Program Lifecycle & Event Loop:
+            -> Node.js runs non-blocking JS code and uses an event-driven code ("Event Loop") for running your logic.
+            -> A Node program exits as soon as there is no more work to do
+            -> Note: The createServer() event never finishes by default
+        3.Asynchronous Code:
+            -> JS code is non-blocking
+            -> Use callbacks and events => Order changes!
+        4. Requests & Responses:
+            -> Parse request data in chunks (Streams & Buffers)
+            -> Avoid "double responses".
+        5. Node.js & Core Modules:
+            -> Node.js ships with multiple core modules (http, fs, path,...)
+            -> Core Modules can be imported into any file to be used there
+            -> Import via require("module")
+        6. The Node Module System:
+            -> Import via require ("./path-to-file") for custom files or require("module") for core & third-party modules.
+            -> Export via module.exports or just exports (for multiple exports)
