@@ -96,4 +96,23 @@
             6. exit ( process.exit)
 
     Using Node Modules System:
-        
+    Module Summary:
+        1. How the Web works:
+            Client -> Request -> Server -> Response -> Client
+        2. Program Lifecycle & Event Loop:
+            -> Node.js runs non-blocking JS code and uses an event-driven code ("Event Loop") for running your logic.
+            -> A Node program exits as soon as there is no more work to do
+            -> Note: The createServer() event never finishes by default
+        3.Asynchronous Code:
+            -> JS code is non-blocking
+            -> Use callbacks and events => Order changes!
+        4. Requests & Responses:
+            -> Parse request data in chunks (Streams & Buffers)
+            -> Avoid "double responses".
+        5. Node.js & Core Modules:
+            -> Node.js ships with multiple core modules (http, fs, path,...)
+            -> Core Modules can be imported into any file to be used there
+            -> Import via require("module")
+        6. The Node Module System:
+            -> Import via require ("./path-to-file") for custom files or require("module") for core & third-party modules.
+            -> Export via module.exports or just exports (for multiple exports)
