@@ -1,0 +1,15 @@
+{
+  "name": "lesson_03-debugging",
+  "version": "1.0.0",
+  "description": "Node JS Lesson about debugging",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "author": "Ranga",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
