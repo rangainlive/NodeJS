@@ -165,3 +165,16 @@
         I showed that nodemon app.js would not work in the terminal or command line because we don't use local dependencies there but global packages.
 
         You could install nodemon globally if you wanted (this is NOT required though - because we can just run it locally): npm install -g nodemon would do the trick. Specifically the -g flag ensures that the package gets added as a global package which you now can use anywhere on your machine, directly from inside the terminal or command prompt
+
+# Lesson_04-Express.js:
+    1. What is Express?
+        - it actually doesn't have a built-in way of handling or parsing that data but it makes it easy to install another package that can easily be hooked into our project that will then do the parsing for us.
+
+    Framework: 
+        Helper functions, tools & rules that help you build your application.
+    Alternatives for Express.js =>  1. Vennila Node.js
+                                    2. Adonis.js (laravel inspired framework for node.js)
+                                    3. Koa
+                                    4. Sails.js
+    -> highly flexible 
+    -> doesn't add too much functionalities out of the box
